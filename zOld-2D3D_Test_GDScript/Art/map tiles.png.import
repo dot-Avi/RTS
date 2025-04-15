@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://big23cxferkwp"
-path="res://.godot/imported/Tiles.png-fbfd6d5d8c69f8140dcc2e4bc73f69ff.ctex"
+uid="uid://c8vim0gdlf7hr"
+path="res://.godot/imported/map tiles.png-279c0ab5bb6eb493e20b2ae14aa379b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://2D3D_C#/Server/Tiles.png"
-dest_files=["res://.godot/imported/Tiles.png-fbfd6d5d8c69f8140dcc2e4bc73f69ff.ctex"]
+source_file="res://zOld-2D3D_Test_GDScript/Art/map tiles.png"
+dest_files=["res://.godot/imported/map tiles.png-279c0ab5bb6eb493e20b2ae14aa379b4.ctex"]
 
 [params]
 

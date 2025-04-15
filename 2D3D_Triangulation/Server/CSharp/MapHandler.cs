@@ -14,6 +14,22 @@ public partial class MapHandler : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Vector2[] tileOne = new Vector2[4]
+		{
+			new Vector2(0, 0),
+			new Vector2(100, 0),
+			new Vector2(100, -99),
+			new Vector2(0, -99)
+		};
+		Vector2[] tileTwo = new Vector2[4]
+		{
+			new Vector2(100, 0),
+			new Vector2(199, 0),
+			new Vector2(199, -99),
+			new Vector2(100, -99)
+		};
+		GD.Print(Geometry2D.MergePolygons(tileOne, tileTwo)[0]);
+
 		GD.Print(mapSize);
 		mapLayers = new Godot.Collections.Array<MapLayer>();
 		foreach (Node child in GetChildren())
@@ -66,7 +82,8 @@ public partial class MapHandler : Node2D
 			/* TODO */
 			/*
 			make a region out of tiles, send the region to layers above and below
-			for bottom layer, check for entirely missing tiles and make a region there too, send that to bottom layer
+			for bottom layer, check for entirely missing tiles and make a region there too
+			send that to bottom layer
 			send each region to the highest layer
 			for each layer's new regions, combine all of them where possible to prevent overlap
 			
@@ -89,7 +106,27 @@ public partial class MapHandler : Node2D
 		GD.Print();
 	}
 
-#region Cell Management
+	public override void _Draw()
+	{
+		base._Draw();
+		Vector2[] tileOne = new Vector2[4]
+		{
+			new Vector2(0, 0),
+			new Vector2(100, 0),
+			new Vector2(100, 99),
+			new Vector2(0, 99)
+		};
+		Vector2[] tileTwo = new Vector2[4]
+		{
+			new Vector2(100, 0),
+			new Vector2(199, 0),
+			new Vector2(199, 99),
+			new Vector2(100, 99)
+		};
+		DrawColoredPolygon(Geometry2D.MergePolygons(tileOne, tileTwo)[0], new Color(0.941176f, 0.972549f, 1f, 1f));
+	}
+
+	#region Cell Management
 	public void EraseMissingCells()
 	{
 		Godot.Collections.Array<Vector2I> cellsUsed = new Godot.Collections.Array<Vector2I>();
@@ -100,7 +137,14 @@ public partial class MapHandler : Node2D
 			{
 				if (cellsUsed.Contains(cell) || isBehindPosition(cell))
 				{
-					GD.Print("Cell ", cell, " already exists: ", cellsUsed.Contains(cell), ". Cell is behind (0, 0): ", isBehindPosition(cell));
+					GD.Print(
+						"Cell ",
+						cell,
+						" already exists: ",
+						cellsUsed.Contains(cell),
+						". Cell is behind (0, 0): ",
+						isBehindPosition(cell)
+					);
 					layer.EraseCell(cell);
 					continue;
 				}
@@ -143,18 +187,22 @@ public partial class MapHandler : Node2D
 		return;
 	}
 
+	Godot.Collections.Array<Vector2I> uncheckedTiles;
+	Godot.Collections.Array<Vector2I> tilesToCheck;
+	Godot.Collections.Array<Vector2I> checkedTiles;
 	public void GenerateLayerRegions(MapLayer layer)
 	{
 		// Set up the tiles to check
-		Godot.Collections.Array<Vector2I> uncheckedTiles = new Godot.Collections.Array<Vector2I>(VectorRange(mapSize));
-		Godot.Collections.Array<Vector2I> tilesToCheck = new Godot.Collections.Array<Vector2I>();
-		//Godot.Collections.Array<Vector2I> checkedTiles= new Godot.Collections.Array<Vector2I>();
+		uncheckedTiles = new Godot.Collections.Array<Vector2I>(VectorRange(mapSize));
+		tilesToCheck = new Godot.Collections.Array<Vector2I>();
+		checkedTiles = new Godot.Collections.Array<Vector2I>();
 
 		tilesToCheck.Add(uncheckedTiles[0]);
-
 		while (uncheckedTiles.Count > 0 || tilesToCheck.Count > 0)
 		{
-			break;
+			// GD.Print("Checking layer " + layer.Name);
+			CheckTile(tilesToCheck[0]);
+			
 		}
 	}
 #endregion
@@ -164,7 +212,21 @@ public partial class MapHandler : Node2D
 //so it's readable in vscode on the right
 
 #region Generate Navmesh
+	private void CheckTile(Vector2I tile)
+	{
+		uncheckedTiles.RemoveAt(0);
+		if (uncheckedTiles.Count != 0)
+		{
+			tilesToCheck.Add(uncheckedTiles[0]);
+		}
+		tilesToCheck.RemoveAt(0);
+	}
 
+	private godot_packed_vector2_array GenerateARegion(Vector2I startingTile)
+	{
+		
+		return new godot_packed_vector2_array();
+	}
 #endregion
 
 //empty region space

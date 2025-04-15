@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=4 uid="uid://bw1kx58c2d04r"]
 
-[ext_resource type="Script" path="res://2D3D_C#/Server/MapHandler.cs" id="1_2a8wm"]
-[ext_resource type="TileSet" uid="uid://btqk7gtvaw07a" path="res://2D3D_C#/Server/tileset.tres" id="1_5oeg0"]
-[ext_resource type="Script" path="res://2D3D_C#/Server/MapLayer.cs" id="3_s5iqm"]
-[ext_resource type="Script" path="res://2D3D_C#/Server/Camera.cs" id="4_5r8o6"]
+[ext_resource type="Script" path="res://2D3D_Triangulation/Server/CSharp/MapHandler.cs" id="1_2a8wm"]
+[ext_resource type="TileSet" uid="uid://btqk7gtvaw07a" path="res://2D3D_Triangulation/Server/tileset.tres" id="1_5oeg0"]
+[ext_resource type="Script" path="res://2D3D_Triangulation/Server/CSharp/MapLayer.cs" id="3_s5iqm"]
+[ext_resource type="Script" path="res://2D3D_Triangulation/Server/CSharp/Camera.cs" id="4_5r8o6"]
 
 [node name="Server" type="Node2D"]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qwn3vrsev0nr"
-path="res://.godot/imported/map tiles contrast.png-6174fe2bcb105113a8a91134f56eb966.ctex"
+uid="uid://big23cxferkwp"
+path="res://.godot/imported/Tiles.png-ca0f837ce9f8137992a580eb68504043.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://2D3D_Test_GDScript/Art/map tiles contrast.png"
-dest_files=["res://.godot/imported/map tiles contrast.png-6174fe2bcb105113a8a91134f56eb966.ctex"]
+source_file="res://2D3D_Triangulation/Server/Tiles.png"
+dest_files=["res://.godot/imported/Tiles.png-ca0f837ce9f8137992a580eb68504043.ctex"]
 
 [params]
 

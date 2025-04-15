@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b36seohxub25a"
-path="res://.godot/imported/icon.svg-68b7c137873d3c3c014008cf83fc088c.ctex"
+uid="uid://nk52xotsruw1"
+path="res://.godot/imported/Tiles_Old.png-f283528b133a985ebe0d771ea187d816.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://2D3D_Test_GDScript/Art/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-68b7c137873d3c3c014008cf83fc088c.ctex"]
+source_file="res://2D3D_Triangulation/Server/Tiles_Old.png"
+dest_files=["res://.godot/imported/Tiles_Old.png-f283528b133a985ebe0d771ea187d816.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

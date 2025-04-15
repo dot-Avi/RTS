@@ -158,11 +158,11 @@ func get_cell_height(tile: Vector2i) -> Vector3i:
 #region Polygonized World
 func polygonize_world() -> void:
 	var processed_tiles: Array[Vector2i] = []
-	var regions: Array[Polygon2D] = []
+	#var regions: Array[Polygon2D] = []
 	
-	var current_region: Region = Region.new()
-	add_child(current_region)
-	regions.append(current_region)
+	#var current_region: Region = Region.new()
+	#add_child(current_region)
+	#regions.append(current_region)
 	
 	for tile in used_tiles():
 		for neighbor in get_surrounding_cells(tile):
