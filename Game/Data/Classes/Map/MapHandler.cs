@@ -36,17 +36,17 @@ public partial class MapHandler : Node
 		chunks = new TerrainChunk[chunkMapSize.X, chunkMapSize.Y];
 		GD.Print(chunkMapSize);
 		// Create chunks
-		for (uint chunkX = 0; chunkX < chunks.GetLength(0); chunkX++)
+		for (uint chunkPosX = 0; chunkPosX < chunks.GetLength(0); chunkPosX++)
 		{
-			for (uint chunkY = 0; chunkY < chunks.GetLength(1); chunkY++)
+			for (uint chunkPosY = 0; chunkPosY < chunks.GetLength(1); chunkPosY++)
 			{
 				TerrainChunk newChunk = TerrainChunk.NewChunk(
-					new Vector2I((int)chunkX, (int)chunkY),
+					new Vector2I((int)chunkPosX, (int)chunkPosY),
 					Data.HeightMap,
 					ChunkSize
 				);
-				//newChunk.Position = new Vector2I((int)chunkX, (int)chunkY);
-				chunks[chunkX, chunkY] = newChunk; // Store the new chunk in the Chunk Array
+				//newChunk.Position = new Vector2I((int)chunkPosX, (int)chunkPosY);
+				chunks[chunkPosX, chunkPosY] = newChunk; // Store the new chunk in the Chunk Array
 			}
 		}
 		GD.Print($"Total Terrain Probes: {HeightMapProbe.Probes}");
@@ -110,6 +110,13 @@ public partial class MapHandler : Node
 				}
 			}
 		}
+
+		chunks[0, 0].GenerateEdgeSegment(new Vector2I(0, 0), 0);
+		for (byte i = 0; i < 8; i++)
+		{
+			GD.Print($"{chunks[0, 0].Probes[0, 0].Edges[i]}");
+		}
+		
 	}
 
 	public void LoadMap(MapData data)

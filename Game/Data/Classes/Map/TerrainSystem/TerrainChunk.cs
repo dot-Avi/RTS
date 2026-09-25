@@ -100,9 +100,11 @@ public partial class TerrainChunk : RefCounted
 	public static TerrainChunk NewChunk(Vector2I position, byte[,] heightmap, byte size)
 	{
 		// Prepares the new chunk and sets its stored variables
-		TerrainChunk newChunk = new TerrainChunk();
-		newChunk.Position = position;
-		newChunk.LocalHeightMap = ArrayHelper.Slice2DArray(heightmap, position.X, size, position.Y, size);
+		TerrainChunk newChunk = new TerrainChunk
+		{
+			Position = position,
+			LocalHeightMap = ArrayHelper.Slice2DArray(heightmap, position.X, size, position.Y, size)
+		};
 
 		// Initializes the new chunk's probe array
 		newChunk.Probes = new HeightMapProbe[
@@ -138,6 +140,48 @@ public partial class TerrainChunk : RefCounted
 		//}
 		//GD.Print("Probes Created!");
 		return newChunk;
+	}
+
+
+	/// <summary>
+	/// Finds an edge's end point from the origin and direction, as well as what direction it continues in.
+	/// </summary>
+	/// <param name="origin">The origin vector to find the next point</param>
+	/// <param name="edgeDir">A number from 0-8 determining what direction the edge search is in</param>
+	/// <returns></returns>
+	public (Vector2I result, Byte edgeDir) GenerateEdgeSegment(Vector2I origin, byte edgeDir)
+	{
+		GD.Print("test starting");
+		Vector2I nextTile = origin + GridHelper.DirNeighborTiles[edgeDir];
+		while (true)
+		{
+			if (nextTile.X < 0 || nextTile.X > 16 || nextTile.Y < 0 || nextTile.Y > 16)
+			{
+				nextTile -= GridHelper.DirNeighborTiles[edgeDir];
+				GD.Print($"Hit a corner at {nextTile}, next dir is {Probes[nextTile.X, nextTile.Y].GetNextEdge(edgeDir)}");
+				return (nextTile, Probes[nextTile.X, nextTile.Y].GetLastEdge(edgeDir));
+			}
+
+			HeightMapProbe probe = Probes[nextTile.X, nextTile.Y];
+			if (probe.IsStraightEdge)
+			{
+				nextTile += GridHelper.DirNeighborTiles[edgeDir];
+				GD.Print($"{probe.Position} is Straight Edge");
+				continue;
+			}
+
+			byte fromDir = (byte)((edgeDir + 4) % 8);
+			byte nextEdgeDir = probe.GetNextEdge(fromDir);
+			// If nextEdge != 4 is a bad result and we have found a corner
+			if (nextEdgeDir != 4)
+			{
+				GD.Print($"{origin} -> {nextTile}\nNext edge dir on polygon: {nextEdgeDir + edgeDir}");
+				return (nextTile, (byte)(nextEdgeDir + edgeDir));
+			}
+			GD.Print($"{probe.Position}in dir right is not straight edge and edge is Equal to 4");
+			nextTile += GridHelper.DirNeighborTiles[edgeDir];
+		}
+		
 	}
 
 

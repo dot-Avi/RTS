@@ -84,11 +84,46 @@ public partial class HeightMapProbe : RefCounted
 	public void UpdateProbe()
 	{
 		CheckEdges();
-		//IsStraightEdge = CheckIfPerfectEdge();
+		IsStraightEdge = CheckIfPerfectEdge();
 		if (EdgeCount > 2 || (EdgeCount == 2 && !CheckIfPerfectEdge()))
 		{
 			IsCorner = true;
 		}
+	}
+
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="fromEdge"></param>
+	/// <returns>How many positions away the next edge is from the first edge clockwise.</returns>
+	public byte GetNextEdge(byte fromEdge)
+	{
+		for (byte dir = 1; dir < 8; dir++)
+		{
+			if (Edges[(dir + fromEdge) % 8])
+			{
+				return dir;
+			}
+		}
+		GD.PushWarning("No edge found.");
+		GD.PrintErr("No edge found.");
+		return 0;
+	}
+
+
+	public byte GetLastEdge(byte fromEdge)
+	{
+		for (byte dir = 7; dir >= 0; dir--)
+		{
+			if (Edges[(dir + fromEdge) % 8])
+			{
+				return dir;
+			}
+		}
+		GD.PushWarning("No edge found.");
+		GD.PrintErr("No edge found.");
+		return 0;
 	}
 
 
